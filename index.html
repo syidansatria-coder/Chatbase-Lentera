@@ -1,42 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<title>Tanya Lentera</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tanya Lentera</title>
 </head>
-
 <body>
+  <script>
+    (function () {
+      if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+        window.chatbase = (...args) => {
+          if (!window.chatbase.q) {
+            window.chatbase.q = [];
+          }
+          window.chatbase.q.push(args);
+        };
+        window.chatbase = new Proxy(window.chatbase, {
+          get(target, prop) {
+            if (prop === "q") {
+              return target.q;
+            }
+            return (...args) => target(prop, ...args);
+          },
+        });
+      }
 
-<script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){
-window.chatbase=(...arguments)=>{
-if(!window.chatbase.q){window.chatbase.q=[]}
-window.chatbase.q.push(arguments)
-};
+      const onLoad = function () {
+        const script = document.createElement("script");
+        script.src = "https://www.chatbase.co/embed.min.js";
+        script.id = "NKkDyZMUGOc32nFMImypx"; // ganti dengan ID chatbot "Tanya Lentera" kamu jika berbeda
+        script.domain = "www.chatbase.co";
+        document.body.appendChild(script);
+      };
 
-window.chatbase=new Proxy(window.chatbase,{
-get(target,prop){
-if(prop==="q"){return target.q}
-return(...args)=>target(prop,...args)
-}
-});
-}
-
-const onLoad=function(){
-const script=document.createElement("script");
-script.src="https://www.chatbase.co/embed.min.js";
-script.id="NKkDyZMUGOc32nFMImypx";
-script.domain="www.chatbase.co";
-document.body.appendChild(script);
-};
-
-if(document.readyState==="complete"){
-onLoad();
-}else{
-window.addEventListener("load",onLoad);
-}
-
-})();
-</script>
-
+      if (document.readyState === "complete") {
+        onLoad();
+      } else {
+        window.addEventListener("load", onLoad);
+      }
+    })();
+  </script>
 </body>
 </html>
